@@ -7,103 +7,68 @@
 </head>
 <body>
     <p>
-        1. Pandas
-        Pandas is a fast, powerful, and flexible library used for data analysis and manipulation. It provides<br>
-        data structures like DataFrames and Series that are widely used in ML for managing structured<br>
-        data.<br>
-        Here u need take students dataset<br>
-        code<br>
-        import pandas<br>
-        df=pandas.read_csv('students.csv')<br>
-        print(df)<br>
-        print(df.loc[[0,1]])<br>
-        print(df.head())<br>
-        print(df.tail())<br>
-        print(df.isnull())<br>
-        print(df.info())<br>
-        output:<br>
-        Sample Run:<br>
-          git config --global user.email "you@example.com"<br>
-  git config --global user.name "Your Name"<br>
-        --------------
-        $python3 Pandas_Lib.py<br>
-        Student_NO Name Branch Year Contact_NO<br>
-        0 1201 Raghu IT III 1234<br>
-        1 1202 Sai IT III 1234<br>
-        2 1203 Sravan IT III 1234<br>
-        3 1204 Karthik IT III 1234<br>
-        4 1205 Gaanesh IT III 1234<br>
-        5 1206 Vamshi IT III 1234<br>
-        6 1207 Shiva IT III 1234<br>
-        7 1208 Racha IT III 1234<br>
-        8 1209 Abu IT III 1234<br>
-        9 1210 Nithish IT III 1234<br>
-        Student_NO Name Branch Year Contact_NO<br>
-        0 1201 Raghu IT III 1234<br>
-        1 1202 Sai IT III 1234<br>
-        Student_NO Name Branch Year Contact_NO<br>
-        0 1201 Raghu IT III 1234<br>
-        1 1202 Sai IT III 1234<br>
-        2 1203 Sravan IT III 1234<br>
-        3 1204 Karthik IT III 1234<br>
-        4 1205 Gaanesh IT III 1234<br>
-        Student_NO Name Branch Year Contact_NO<br>
-        5 1206 Vamshi IT III 1234<br>
-        6 1207 Shiva IT III 1234<br>
-        7 1208 Racha IT III 1234<br>
-        8 1209 Abu IT III 1234<br>
-        9 1210 Nithish IT III 1234<br>
-        Student_NO Name Branch Year Contact_NO<br>
-        0 False False False False False<br>
-        1 False False False False False<br>
-        2 False False False False False<br>
-        3 False False False False False<br>
-        4 False False False False False<br>
-        5 False False False False False<br>
-        6 False False False False False<br>
-        7 False False False False False<br>
-        8 False False False False False<br>
-        9 False False False False False<br>
-        RangeIndex: 10 entries, 0 to 9<br>
-        Data columns (total 5 columns):<br>
-        # Column Non-Null Count Dtype<br>
-        --- ------ -------------- -----<br>
-        0 Student_NO 10 non-null int64<br>
-        1 Name 10 non-null object<br>
-        2 Branch 10 non-null object<br>
-        3 Year 10 non-null object<br>
-        4 Contact_NO 10 non-null int64<br>
-        dtypes: int64(2), object(3)<br>
-        memory usage: 532.0+ bytes<br>
-        None<br>
-        2.Matplotlib:<br>
-        Matplotlib is a plotting library used for creating static, interactive, and animated visualizations. It is<br>
-        commonly used in ML for data exploration and model evaluation through plots<br>
-        import matplotlib.pyplot as plt<br>
-        import numpy as np<br>
-        # Taking user inputs for x and y coordinates<br>
-        x_input = input("Enter the x coordinates separated by spaces: ")<br>
-        y_input = input("Enter the y coordinates separated by spaces: ")<br>
-        # Splitting the input string into a list of strings, then converting them to float<br>
-        x = np.array([float(i) for i in x_input.split()])<br>
-        y = np.array([float(i) for i in y_input.split()])<br>
-        # Checking if the number of x and y coordinates match<br>
-        if len(x) != len(y):<br>
-        print("Error: The number of x and y coordinates must be the same.")<br>
-        else:<br>
-        plt.plot(x, y, marker='o') # Plot with markers at data points<br>
-        plt.xlabel('X-axis')<br>
-        plt.ylabel('Y-axis')<br>
-        plt.title('User Input Plot')<br>
-        plt.grid(True) # Adding a grid for better visualization<br>
-        plt.show()<br>
-        output:<br>
-        Sample Run:<br>
-        --------------<br>
-        $python3 Matplot_Lib.py<br>
-        Enter the x coordinates separated by spaces: 3 5 7 8<br>
-        Enter the y coordinates separated by spaces: 3.2 5.3 8.4 9.3<br>
-
+      8. Implementation of Logistic Regression using sklearn.<br>
+Logistic regression is one of the most popular Machine Learning algorithms, which comes under the<br>
+Supervised Learning technique. It is used for predicting the categorical dependent variable using a<br>
+given set of independent variables. Logistic regression predicts the output of a categorical dependent<br>
+variable. Therefore the outcome must be a categorical or discrete value. It can be either Yes or No, 0<br>
+or 1, true or False, etc. but instead of giving the exact value as 0 and 1, it gives the probabilistic<br>
+values which lie between 0 and 1.<br>
+In this implementation, we use "Study Hours" as the independent variable and "Exam Results (0 or<br>
+1)" as the dependent variable.<br>
+Code:<br>
+import pandas as pd<br>
+import numpy as np<br>
+import matplotlib.pyplot as plt<br>
+from sklearn.linear_model import LogisticRegression<br>
+from sklearn.model_selection import train_test_split<br>
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report<br>
+# Step 1: Load the dataset<br>
+data = pd.read_csv("study_hours.csv") # Ensure this file exists in the same directory<br>
+X = data[['StudyHours']]<br>
+y = data['Result']<br>
+# Step 2: Split data<br>
+X_train, X_test, y_train, y_test = train_test_split(<br>
+    X, y, test_size=0.2, random_state=42)<br>
+# Step 3: Train logistic regression model<br>
+model = LogisticRegression()<br>
+model.fit(X_train, y_train)<br>
+# Step 4: Predict and evaluate<br>
+y_pred = model.predict(X_test)<br>
+# Step 5: Print results<br>
+print(f"Accuracy: {accuracy_score(y_test, y_pred):.1f}")<br>
+print("\nConfusion Matrix:")<br>
+print(confusion_matrix(y_test, y_pred))<br>
+print("\nClassification Report:")<br>
+print(classification_report(y_test, y_pred))<br>
+# Step 6: Plotting decision boundary<br>
+X_range = np.linspace(X.min() - 1, X.max() + 1, 300).reshape(-1, 1)<br>
+y_prob = model.predict_proba(X_range)[:, 1]<br>
+plt.figure(figsize=(8, 6))<br>
+plt.scatter(X_train, y_train, color='blue', label='Training Data')<br>
+plt.scatter(X_test, y_test, color='green', marker='x', s=100, label='Testing Data')<br>
+plt.plot(X_range, y_prob, color='red', linewidth=2, label='Decision Boundary')<br>
+plt.xlabel("Study Hours")<br>
+plt.ylabel("Exam Result")<br>
+plt.title("Logistic Regression - Study Hours vs Exam Result")<br>
+plt.legend()<br>
+plt.grid(True)<br>
+plt.show()<br>
+output:<br>
+Sample Run:<br>
+--------------<br>
+$ python3 Logistic_Regression.py<br>
+Accuracy: 1.0<br>
+Confusion Matrix:<br>
+[[1 0]<br>
+[0 1]]<br>
+Classification Report:<br>
+ precision recall f1-score support<br>
+ 0 1.00 1.00 1.00 1<br>
+ 1 1.00 1.00 1.00 1<br>
+ accuracy 1.00 2<br>
+ macro avg 1.00 1.00 1.00 2<br>
+ weighted avg 1.00 1.00 1.00 2<br>
     </p>
     <img src="Screenshot 2026-03-30 084520.png" alt="Plot Image">
 </body>
