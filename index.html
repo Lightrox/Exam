@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        1. Pandas
+        Pandas is a fast, powerful, and flexible library used for data analysis and manipulation. It provides
+        data structures like DataFrames and Series that are widely used in ML for managing structured
+        data.
+        Here u need take students dataset
+        code
+        import pandas
+        df=pandas.read_csv('students.csv')
+        print(df)
+        print(df.loc[[0,1]])
+        print(df.head())
+        print(df.tail())
+        print(df.isnull())
+        print(df.info())
+        output:
+        Sample Run:
+          git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+        --------------
+        $python3 Pandas_Lib.py
+        Student_NO Name Branch Year Contact_NO
+        0 1201 Raghu IT III 1234
+        1 1202 Sai IT III 1234
+        2 1203 Sravan IT III 1234
+        3 1204 Karthik IT III 1234
+        4 1205 Gaanesh IT III 1234
+        5 1206 Vamshi IT III 1234
+        6 1207 Shiva IT III 1234
+        7 1208 Racha IT III 1234
+        8 1209 Abu IT III 1234
+        9 1210 Nithish IT III 1234
+        Student_NO Name Branch Year Contact_NO
+        0 1201 Raghu IT III 1234
+        1 1202 Sai IT III 1234
+        Student_NO Name Branch Year Contact_NO
+        0 1201 Raghu IT III 1234
+        1 1202 Sai IT III 1234
+        2 1203 Sravan IT III 1234
+        3 1204 Karthik IT III 1234
+        4 1205 Gaanesh IT III 1234
+        Student_NO Name Branch Year Contact_NO
+        5 1206 Vamshi IT III 1234
+        6 1207 Shiva IT III 1234
+        7 1208 Racha IT III 1234
+        8 1209 Abu IT III 1234
+        9 1210 Nithish IT III 1234
+        Student_NO Name Branch Year Contact_NO
+        0 False False False False False
+        1 False False False False False
+        2 False False False False False
+        3 False False False False False
+        4 False False False False False
+        5 False False False False False
+        6 False False False False False
+        7 False False False False False
+        8 False False False False False
+        9 False False False False False
+        RangeIndex: 10 entries, 0 to 9
+        Data columns (total 5 columns):
+        # Column Non-Null Count Dtype
+        --- ------ -------------- -----
+        0 Student_NO 10 non-null int64
+        1 Name 10 non-null object
+        2 Branch 10 non-null object
+        3 Year 10 non-null object
+        4 Contact_NO 10 non-null int64
+        dtypes: int64(2), object(3)
+        memory usage: 532.0+ bytes
+        None
+        2.Matplotlib:
+        Matplotlib is a plotting library used for creating static, interactive, and animated visualizations. It is
+        commonly used in ML for data exploration and model evaluation through plots
+        import matplotlib.pyplot as plt
+        import numpy as np
+        # Taking user inputs for x and y coordinates
+        x_input = input("Enter the x coordinates separated by spaces: ")
+        y_input = input("Enter the y coordinates separated by spaces: ")
+        # Splitting the input string into a list of strings, then converting them to float
+        x = np.array([float(i) for i in x_input.split()])
+        y = np.array([float(i) for i in y_input.split()])
+        # Checking if the number of x and y coordinates match
+        if len(x) != len(y):
+        print("Error: The number of x and y coordinates must be the same.")
+        else:
+        plt.plot(x, y, marker='o') # Plot with markers at data points
+        plt.xlabel('X-axis')
+        plt.ylabel('Y-axis')
+        plt.title('User Input Plot')
+        plt.grid(True) # Adding a grid for better visualization
+        plt.show()
+        output:
+        Sample Run:
+        --------------
+        $python3 Matplot_Lib.py
+        Enter the x coordinates separated by spaces: 3 5 7 8
+        Enter the y coordinates separated by spaces: 3.2 5.3 8.4 9.3
+
+    </p>
+</body>
+</html>
