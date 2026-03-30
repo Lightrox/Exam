@@ -71,5 +71,99 @@ Classification Report:<br>
  weighted avg 1.00 1.00 1.00 2<br>
     </p>
     <img src="Screenshot 2026-03-30 084520.png" alt="Plot Image">
+<br>
+<p>
+A Decision Tree is a supervised machine learning algorithm used for classification and regression<br>
+tasks. It builds a tree-like model of decisions based on features of the data, splitting nodes based on<br>
+conditions that maximize information gain or Gini index or minimize impurity. Decision Trees are<br>
+interpretable and useful for understanding the structure of data.<br>
+The Iris dataset is a well-known dataset in machine learning, containing 150 samples from three<br>
+species of Iris flowers: setosa, versicolor, and virginica. Each sample has four features: sepal length,<br>
+sepal width, petal length, and petal width.<br>
+Importing Required Libraries:<br>
+ Libraries from sklearn are imported for data handling, model training, evaluation, and<br>
+visualization.<br>
+ matplotlib.pyplot is used for plotting the decision tree.<br>
+ load_iris: To load the Iris dataset.<br>
+ train_test_split: To split the dataset into training and testing subsets.<br>
+ GridSearchCV: To perform hyperparameter tuning through grid search.<br>
+ DecisionTreeClassifier: To create a Decision Tree model.<br>
+ accuracy_score and classification_report: To evaluate model performance.<br>
+ tree: For plotting the tree structure.<br>
+2. Loading the Iris Dataset<br>
+ The Iris dataset is loaded using load_iris().<br>
+ X holds the feature data, and y holds the target labels (species of iris).<br>
+3. Splitting the Dataset<br>
+ Using train_test_split, 90% of the data is used for training and 10% for testing.<br>
+ This ensures the model is evaluated on unseen data.<br>
+4. Defining a Parameter Grid for Tuning<br>
+ criterion: Function to measure split quality - 'gini' or 'entropy'.<br>
+ max_depth: Max depth of the tree (1 to 4).<br>
+ min_samples_split: Minimum samples to split an internal node.<br>
+ min_samples_leaf: Minimum samples required at a leaf node.<br>
+5. Initializing the Decision Tree Classifier<br>
+ An instance of DecisionTreeClassifier is created with a fixed random state.<br>
+6. Hyperparameter Tuning using GridSearchCV<br>
+ GridSearchCV searches through the parameter grid using cross-validation (cv=3).<br>
+ It identifies the best combination of parameters for optimal model performance.<br>
+7. Getting the Best Model<br>
+ best_estimator_ retrieves the best-performing classifier from the grid search.<br>
+8. Fitting the Best Classifier on Training Data<br>
+ The best classifier is trained using fit() on X_train and y_train.<br>
+9. Making Predictions on the Test Set<br>
+ Predictions are made using the best model from the grid search.<br>
+11. Printing Classification Report<br>
+ classification_report provides precision, recall, and F1-score for each iris species class.<br>
+12. Visualizing the Best Decision Tree<br>
+ plot_tree from sklearn.tree is used to visualize the tree structure.<br>
+ It includes class names, feature names, and colored nodes for interpretability.<br>
+ plt.show() displays the tree plot.<br>
+Code:<br>
+# Importing required libraries<br>
+from sklearn.datasets import load_iris<br>
+from sklearn.model_selection import train_test_split, GridSearchCV<br>
+from sklearn.tree import DecisionTreeClassifier<br>
+from sklearn.metrics import accuracy_score, classification_report<br>
+import matplotlib.pyplot as plt<br>
+from sklearn import tree<br>
+# Load the Iris dataset<br>
+iris = load_iris()<br>
+X = iris.data # Features<br>
+y = iris.target # Target labels<br>
+# Split the dataset into training and testing sets (90% train, 10% test)<br>
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)<br>
+# Initialize the Decision Tree classifier<br>
+clf = DecisionTreeClassifier(max_depth=2, min_samples_split=2, min_samples_leaf=1,<br>
+random_state=42)<br>
+# Fit the classifier on the training data<br>
+clf.fit(X_train, y_train)<br>
+# Make predictions on the test set<br>
+y_pred = clf.predict(X_test)<br>
+# Calculate accuracy<br>
+accuracy = accuracy_score(y_test, y_pred)<br>
+print(f'Accuracy: {accuracy:.2f}')<br>
+# Print classification report<br>
+print('Classification Report:')<br>
+print(classification_report(y_test, y_pred, target_names=iris.target_names))<br>
+# Visualize the Decision Tree<br>
+plt.figure(figsize=(10, 8))<br>
+tree.plot_tree(clf, filled=True, feature_names=iris.feature_names,<br>
+class_names=iris.target_names, rounded=True)<br>
+plt.title("Decision Tree Visualization")<br>
+plt.show()<br>
+output:<br>
+Sample Run:<br>
+--------------<br>
+$ python3 Dtree.py<br>
+Accuracy: 1.00<br>
+Classification Report:<br>
+ precision recall f1-score support<br>
+ setosa 1.00 1.00 1.00 6<br>
+ versicolor 1.00 1.00 1.00 6<br>
+ virginica 1.00 1.00 1.00 3<br>
+ accuracy 1.00 15<br>
+ macro avg 1.00 1.00 1.00 15<br>
+ weighted avg 1.00 1.00 1.00 15<br>
+</p>
 </body>
 </html>
