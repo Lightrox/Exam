@@ -1,176 +1,81 @@
 <!DOCTYPE html>
 <html lang="en"><br>
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<a href="ML LAB week6-10.pdf" download>
-    Download Ml 6 to 10 Lab Manual
-</a>
-<a href="MLlab.pdf" download>
-    Download Ml 1 to 4 Lab Manual
-</a>
 <body>
     <p>
-      8. Implementation of Logistic Regression using sklearn.<br>
-Logistic regression is one of the most popular Machine Learning algorithms, which comes under the<br>
-Supervised Learning technique. It is used for predicting the categorical dependent variable using a<br>
-given set of independent variables. Logistic regression predicts the output of a categorical dependent<br>
-variable. Therefore the outcome must be a categorical or discrete value. It can be either Yes or No, 0<br>
-or 1, true or False, etc. but instead of giving the exact value as 0 and 1, it gives the probabilistic<br>
-values which lie between 0 and 1.<br>
-In this implementation, we use "Study Hours" as the independent variable and "Exam Results (0 or<br>
-1)" as the dependent variable.<br>
-Code:<br>
-import pandas as pd<br>
-import numpy as np<br>
-import matplotlib.pyplot as plt<br>
-from sklearn.linear_model import LogisticRegression<br>
-from sklearn.model_selection import train_test_split<br>
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report<br>
-# Step 1: Load the dataset<br>
-data = pd.read_csv("study_hours.csv") # Ensure this file exists in the same directory<br>
-X = data[['StudyHours']]<br>
-y = data['Result']<br>
-# Step 2: Split data<br>
-X_train, X_test, y_train, y_test = train_test_split(<br>
-    X, y, test_size=0.2, random_state=42)<br>
-# Step 3: Train logistic regression model<br>
-model = LogisticRegression()<br>
-model.fit(X_train, y_train)<br>
-# Step 4: Predict and evaluate<br>
-y_pred = model.predict(X_test)<br>
-# Step 5: Print results<br>
-print(f"Accuracy: {accuracy_score(y_test, y_pred):.1f}")<br>
-print("\nConfusion Matrix:")<br>
-print(confusion_matrix(y_test, y_pred))<br>
-print("\nClassification Report:")<br>
-print(classification_report(y_test, y_pred))<br>
-# Step 6: Plotting decision boundary<br>
-X_range = np.linspace(X.min() - 1, X.max() + 1, 300).reshape(-1, 1)<br>
-y_prob = model.predict_proba(X_range)[:, 1]<br>
-plt.figure(figsize=(8, 6))<br>
-plt.scatter(X_train, y_train, color='blue', label='Training Data')<br>
-plt.scatter(X_test, y_test, color='green', marker='x', s=100, label='Testing Data')<br>
-plt.plot(X_range, y_prob, color='red', linewidth=2, label='Decision Boundary')<br>
-plt.xlabel("Study Hours")<br>
-plt.ylabel("Exam Result")<br>
-plt.title("Logistic Regression - Study Hours vs Exam Result")<br>
-plt.legend()<br>
-plt.grid(True)<br>
-plt.show()<br>
-output:<br>
-Sample Run:<br>
---------------<br>
-$ python3 Logistic_Regression.py<br>
-Accuracy: 1.0<br>
-Confusion Matrix:<br>
-[[1 0]<br>
-[0 1]]<br>
-Classification Report:<br>
- precision recall f1-score support<br>
- 0 1.00 1.00 1.00 1<br>
- 1 1.00 1.00 1.00 1<br>
- accuracy 1.00 2<br>
- macro avg 1.00 1.00 1.00 2<br>
- weighted avg 1.00 1.00 1.00 2<br>
+        from selenium import webdriver<br>
+        from selenium.webdriver.common.by import By<br>
+        from selenium.webdriver.common.action_chains import ActionChains<br>
+        import time<br>
+        driver = webdriver.Chrome()<br>
+        try:<br>
+        driver.get("https://www.google.com")<br>
+        driver.maximize_window()<br>
+        print("=== Context-Sensitive Recording ===")<br>
+        search_box = driver.find_element(By.NAME, "q")<br>
+        search_box.send_keys("Selenium Automation Testing")<br>
+        search_box.submit()<br>
+        time.sleep(2)<br>
+        print("Search completed successfully")<br>
+        print("\n=== Analog Recording ===")<br>
+        actions = ActionChains(driver)<br>
+        actions.move_to_element(search_box).click().perform()<br>
+        time.sleep(2)<br>
+        print("Analog movements completed")<br>
+        finally:<br>
+        driver.quit()<br>
+        Input:<br>
+        Website: https://www.google.com<br>
+        Search text: Selenium Automation Testing<br>
+        Output:<br>
+        === Context-Sensitive Recording ===<br>
+        Search completed successfully<br>
+        === Analog Recording ===<br>
+        Analog movements completed<br><br><br>
+        ----------------------------------------
     </p>
-    <img src="Screenshot 2026-03-30 084520.png" alt="Plot Image">
-<br>
-<p>
-A Decision Tree is a supervised machine learning algorithm used for classification and regression<br>
-tasks. It builds a tree-like model of decisions based on features of the data, splitting nodes based on<br>
-conditions that maximize information gain or Gini index or minimize impurity. Decision Trees are<br>
-interpretable and useful for understanding the structure of data.<br>
-The Iris dataset is a well-known dataset in machine learning, containing 150 samples from three<br>
-species of Iris flowers: setosa, versicolor, and virginica. Each sample has four features: sepal length,<br>
-sepal width, petal length, and petal width.<br>
-Importing Required Libraries:<br>
- Libraries from sklearn are imported for data handling, model training, evaluation, and<br>
-visualization.<br>
- matplotlib.pyplot is used for plotting the decision tree.<br>
- load_iris: To load the Iris dataset.<br>
- train_test_split: To split the dataset into training and testing subsets.<br>
- GridSearchCV: To perform hyperparameter tuning through grid search.<br>
- DecisionTreeClassifier: To create a Decision Tree model.<br>
- accuracy_score and classification_report: To evaluate model performance.<br>
- tree: For plotting the tree structure.<br>
-2. Loading the Iris Dataset<br>
- The Iris dataset is loaded using load_iris().<br>
- X holds the feature data, and y holds the target labels (species of iris).<br>
-3. Splitting the Dataset<br>
- Using train_test_split, 90% of the data is used for training and 10% for testing.<br>
- This ensures the model is evaluated on unseen data.<br>
-4. Defining a Parameter Grid for Tuning<br>
- criterion: Function to measure split quality - 'gini' or 'entropy'.<br>
- max_depth: Max depth of the tree (1 to 4).<br>
- min_samples_split: Minimum samples to split an internal node.<br>
- min_samples_leaf: Minimum samples required at a leaf node.<br>
-5. Initializing the Decision Tree Classifier<br>
- An instance of DecisionTreeClassifier is created with a fixed random state.<br>
-6. Hyperparameter Tuning using GridSearchCV<br>
- GridSearchCV searches through the parameter grid using cross-validation (cv=3).<br>
- It identifies the best combination of parameters for optimal model performance.<br>
-7. Getting the Best Model<br>
- best_estimator_ retrieves the best-performing classifier from the grid search.<br>
-8. Fitting the Best Classifier on Training Data<br>
- The best classifier is trained using fit() on X_train and y_train.<br>
-9. Making Predictions on the Test Set<br>
- Predictions are made using the best model from the grid search.<br>
-11. Printing Classification Report<br>
- classification_report provides precision, recall, and F1-score for each iris species class.<br>
-12. Visualizing the Best Decision Tree<br>
- plot_tree from sklearn.tree is used to visualize the tree structure.<br>
- It includes class names, feature names, and colored nodes for interpretability.<br>
- plt.show() displays the tree plot.<br>
-Code:<br>
-# Importing required libraries<br>
-from sklearn.datasets import load_iris<br>
-from sklearn.model_selection import train_test_split, GridSearchCV<br>
-from sklearn.tree import DecisionTreeClassifier<br>
-from sklearn.metrics import accuracy_score, classification_report<br>
-import matplotlib.pyplot as plt<br>
-from sklearn import tree<br>
-# Load the Iris dataset<br>
-iris = load_iris()<br>
-X = iris.data # Features<br>
-y = iris.target # Target labels<br>
-# Split the dataset into training and testing sets (90% train, 10% test)<br>
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)<br>
-# Initialize the Decision Tree classifier<br>
-clf = DecisionTreeClassifier(max_depth=2, min_samples_split=2, min_samples_leaf=1,<br>
-random_state=42)<br>
-# Fit the classifier on the training data<br>
-clf.fit(X_train, y_train)<br>
-# Make predictions on the test set<br>
-y_pred = clf.predict(X_test)<br>
-# Calculate accuracy<br>
-accuracy = accuracy_score(y_test, y_pred)<br>
-print(f'Accuracy: {accuracy:.2f}')<br>
-# Print classification report<br>
-print('Classification Report:')<br>
-print(classification_report(y_test, y_pred, target_names=iris.target_names))<br>
-# Visualize the Decision Tree<br>
-plt.figure(figsize=(10, 8))<br>
-tree.plot_tree(clf, filled=True, feature_names=iris.feature_names,<br>
-class_names=iris.target_names, rounded=True)<br>
-plt.title("Decision Tree Visualization")<br>
-plt.show()<br>
-output:<br>
-Sample Run:<br>
---------------<br>
-$ python3 Dtree.py<br>
-Accuracy: 1.00<br>
-Classification Report:<br>
- precision recall f1-score support<br>
- setosa 1.00 1.00 1.00 6<br>
- versicolor 1.00 1.00 1.00 6<br>
- virginica 1.00 1.00 1.00 3<br>
- accuracy 1.00 15<br>
- macro avg 1.00 1.00 1.00 15<br>
- weighted avg 1.00 1.00 1.00 15<br>
-</p>
+    <p>
+        11) Data driven batch
+        Aim: To perform batch execution of test cases
+        using external test data sources, enabling efficient
+        validation of application functionality across
+        multiple data sets.
+        Code
+        import csv
+        # Define validation function
+        def validate_user(name, email, status):
+        if not email:
+        return False
+        if status not in ['active', 'inactive']:
+        return False
+        return True
+        # Step 1: Load data from CSV
+        with open('test_cases.csv', newline='') as file:
+        reader = csv.DictReader(file)
+        total = 0
+        passed = 0
+        for i, row in enumerate(reader, 1):
+        name = row['name']
+        email = row['email']
+        status = row['status']
+        total += 1
+        # Step 2: Execute validation
+        if validate_user(name, email, status):
+        print(f" Test {i} Passed: {name}")
+        passed += 1
+        else:
+        print(f" Test {i} Failed: {name}")
+        print(f"\nSummary: {passed} out of {total} tests
+        passed.")
+        output:
+
+
+    </p>
+    <img src = "output.png" alt = "Output Image">
+
 </body>
 </html>
