@@ -26,13 +26,28 @@ mode = mode if maxf > 1 else "No mode"
 
 var = sum((x - mean) ** 2 for x in nums) / n
 std = var ** 0.5
-
-print("Mean =", mean)
-print("Median =", median)
-print("Mode =", mode)
-print("Variance =", var)
-print("Std Dev =", std)
+<------------Print results------------->
 </code></pre>
+<pre>
+    <code>
+  import statistics
+ # Input data from user
+ data=input("Enter data separated by comma:")
+ data=[int(x) for x in data.split(',')]
+ # Compute Mean
+ mean=statistics.mean(data)
+ # Compute Median
+ median=statistics.median(data)
+ # Compute Mode
+ mode=statistics.mode(data)
+ # Compute Standard Deviation
+ std_dev=statistics.stdev(data)
+ # Compute Variance
+ variance=statistics.variance(data)
+<------------Print results------------->
+
+    </code>
+</pre>
 <pre>
     <code>
          import math
@@ -51,16 +66,7 @@ print("Std Dev =", std)
  result8=math.sin(a)
  result9=math.cos(a)
  result10=math.tan(a)
- print(f"Using math.ceil({x}): {result1}")
- print(f"Using math.factorial({x}):{result2}")
- print(f"Using math.exp({x}):{result3}")
- print(f"Using math.sqrt({x}):{result4}")
- print(f"Using math.floor({x}):{result5}")
- print(f"Using math.gcd({n1},{n2}):{result6}")
- print(f"Using math.pow({n1},{n2}):{result7}")
- print(f"Using math.sin({angle}):{result8}")
- print(f"Using math.cos({angle}):{result9}")
- print(f"Using math.tan({angle}):{result10:.15f}")
+<------------Print results------------->
     </code>
 </pre>
 <pre>
