@@ -6,76 +6,115 @@
     <title>Document</title>
 </head>
 <body>
+    <P>
+        from collections import deque<br>
+        <br>
+        def water_jug_bfs(c1, c2, target):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;visited = set()<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;q = deque([((0, 0), [])])<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;while q:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(x, y), path = q.popleft()<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (x, y) in visited:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visited.add((x, y))<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if x == target or y == target:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return path + [(x, y)]<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;next_states = [<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(c1, y), (x, c2),<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0, y), (x, 0),<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0, x+y) if x+y <= c2 else (x-(c2-y), c2),<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(x+y, 0) if x+y <= c1 else (c1, y-(c1-x))<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for ns in next_states:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ns not in visited:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;q.append((ns, path + [(x, y)]))<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;return None<br>
+        <br>
+        jug1 = 4<br>
+        jug2 = 3<br>
+        target = 2<br>
+        <br>
+        solution = water_jug_bfs(jug1, jug2, target)<br>
+        <br>
+        if solution:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;print(f"✅ Solution found in {len(solution)-1} steps:")<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;for step in solution:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"Jug1: {step[0]}L, Jug2: {step[1]}L")<br>
+        else:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;print("❌ No solution found.")<br>
+    </P>
     <p>
-        from selenium import webdriver<br>
-        from selenium.webdriver.common.by import By<br>
-        from selenium.webdriver.common.action_chains import ActionChains<br>
-        import time<br>
-        driver = webdriver.Chrome()<br>
-        try:<br>
-        driver.get("https://www.google.com")<br>
-        driver.maximize_window()<br>
-        print("=== Context-Sensitive Recording ===")<br>
-        search_box = driver.find_element(By.NAME, "q")<br>
-        search_box.send_keys("Selenium Automation Testing")<br>
-        search_box.submit()<br>
-        time.sleep(2)<br>
-        print("Search completed successfully")<br>
-        print("\n=== Analog Recording ===")<br>
-        actions = ActionChains(driver)<br>
-        actions.move_to_element(search_box).click().perform()<br>
-        time.sleep(2)<br>
-        print("Analog movements completed")<br>
-        finally:<br>
-        driver.quit()<br>
-        Input:<br>
-        Website: https://www.google.com<br>
-        Search text: Selenium Automation Testing<br>
-        Output:<br>
-        === Context-Sensitive Recording ===<br>
-        Search completed successfully<br>
-        === Analog Recording ===<br>
-        Analog movements completed<br><br><br>
-        ----------------------------------------
+        N = 8<br>
+        <br>
+        def solve(board, row=0):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;if row == N:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for r in board:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(" ".join("Q" if c else "." for c in r))<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print()<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;for col in range(N):<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if any(board[i][col] for i in range(row)):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if any(board[i][j] for i, j in zip(range(row-1, -1, -1), range(col-1, -1, -1))):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if any(board[i][j] for i, j in zip(range(row-1, -1, -1), range(col+1, N))):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;board[row][col] = 1<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;solve(board, row + 1)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;board[row][col] = 0<br>
+        <br>
+        board = [[0]*N for _ in range(N)]<br>
+        solve(board)<br>
     </p>
-    <p>
-        11) Data driven batch
-        Aim: To perform batch execution of test cases
-        using external test data sources, enabling efficient
-        validation of application functionality across
-        multiple data sets.
-        Code
-        import csv
-        # Define validation function
-        def validate_user(name, email, status):
-        if not email:
-        return False
-        if status not in ['active', 'inactive']:
-        return False
-        return True
-        # Step 1: Load data from CSV
-        with open('test_cases.csv', newline='') as file:
-        reader = csv.DictReader(file)
-        total = 0
-        passed = 0
-        for i, row in enumerate(reader, 1):
-        name = row['name']
-        email = row['email']
-        status = row['status']
-        total += 1
-        # Step 2: Execute validation
-        if validate_user(name, email, status):
-        print(f" Test {i} Passed: {name}")
-        passed += 1
-        else:
-        print(f" Test {i} Failed: {name}")
-        print(f"\nSummary: {passed} out of {total} tests
-        passed.")
-        output:
+    <P>
+        from itertools import permutations<br>
+        <br>
+        def tsp(graph, start):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;n = len(graph)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;nodes = [i for i in range(n) if i != start]<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;min_cost = float('inf')<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;best_path = []<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;for p in permutations(nodes):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path = [start] + list(p) + [start]<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost = 0<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i in range(len(path) - 1):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost += graph[path[i]][path[i+1]]<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if cost < min_cost:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;min_cost = cost<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;best_path = path<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;return best_path, min_cost<br>
+        <br>
+        graph = [<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;[0, 10, 15, 20],<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;[10, 0, 35, 25],<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;[15, 35, 0, 30],<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;[20, 25, 30, 0]<br>
+        ]<br>
+        <br>
+        route, cost = tsp(graph, 0)<br>
+        print("Best Route:", route)<br>
+        print("Minimum Cost:", cost)<br>
+    </P>
 
-
-    </p>
-    <img src = "output.png" alt = "Output Image">
-
+    <img src = "One.png" alt = "Output Image"><br>
+    <img src = "Two.png" alt = "Output Image"><br>
+    <img src = "Three.png" alt = "Output Image">
+    
 </body>
 </html>
