@@ -7,89 +7,33 @@
 </head>
 <body>
 <pre><code>
-nums = input("Enter numbers: ").split(',')
-nums = [int(x) for x in nums]
-n = len(nums)
-
-mean = sum(nums) / n
-
-nums.sort()
-median = (nums[n//2] + nums[(n-1)//2]) / 2
-
-freq = {}
-for x in nums:
-    freq[x] = freq.get(x, 0) + 1
-
-maxf = max(freq.values())
-mode = [k for k, v in freq.items() if v == maxf]
-mode = mode if maxf > 1 else "No mode"
-
-var = sum((x - mean) ** 2 for x in nums) / n
-std = var ** 0.5
-<------------Print results------------->
+import csv
+with open('test_cases.csv') as f:
+    for i, row in enumerate(csv.DictReader(f), 1):
+        if row["email"] and row["status"] in ["active", "inactive"]:
+            print(f"Test {i} Passed: {row['name']}")
+        else:
+            print(f"Test {i} Failed: {row['name']}")
 </code></pre>
-<pre>
+<pre>\
     <code>
-  import statistics
- # Input data from user
- data=input("Enter data separated by comma:")
- data=[int(x) for x in data.split(',')]
- # Compute Mean
- mean=statistics.mean(data)
- # Compute Median
- median=statistics.median(data)
- # Compute Mode
- mode=statistics.mode(data)
- # Compute Standard Deviation
- std_dev=statistics.stdev(data)
- # Compute Variance
- variance=statistics.variance(data)
-<------------Print results------------->
-
-    </code>
-</pre>
-<pre>
-    <code>
-         import math
- x=int(input("Enter a number:"))
- result1=math.ceil(x)
- result2=math.factorial(x)
- result3=math.exp(x)
- result4=math.sqrt(x)
- result5=math.floor(x)
- n1=int(input("Enter number1:"))
- n2=int(input("Enter number2:"))
- result6=math.gcd(n1,n2)
- result7=math.pow(n1,n2)
- angle=int(input("Enter an angle:"))
- a=math.radians(angle)
- result8=math.sin(a)
- result9=math.cos(a)
- result10=math.tan(a)
-<------------Print results------------->
-    </code>
-</pre>
-<pre>
-    <code>
- import numpy as np
-
-r = int(input("Rows: "))
-c = int(input("Cols: "))
-
-data = list(map(float, input(f"Enter {r*c} elements: ").split()))
-arr = np.array(data).reshape(r, c)
-
-print("Array:\n", arr)
-print("Ones:\n", np.ones((r, c)))
-print("Zeros:\n", np.zeros((r, c)))
-print("Transpose:\n", arr.T)
-print("Flatten:\n", arr.reshape(-1))
-print("Min:", min(data))
-print("Max:", max(data))
+from pywinauto import Application, Desktop
+from time import sleep
+Application(backend="uia").start("calc.exe")
+sleep(3)
+calc = Desktop(backend="uia").window(title_re=".*Calculator.*")
+calc.wait("visible", timeout=15)
+for b in ["Seven", "Plus", "Three", "Equals"]:
+    calc.child_window(title=b, control_type="Button").click()
+sleep(1)
+result = calc.child_window(auto_id="CalculatorResults", control_type="Text")\
+             .window_text().replace("Display is", "").strip()
+print("Test Passed" if result == "10" else f"Test Failed: {result}")
+calc.close()
     </code>
 </pre>
 
-    <a href="ML_1to5.pdf" download>Module 1</a><br>
-    <a href="ML_6to10.pdf" download>Module 2</a>
+    <a href="STM_1.pdf" download>Module 1</a><br>
+    <a href="STM_2.pdf" download>Module 2</a>
 </body>
 </html>
