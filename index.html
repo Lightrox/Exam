@@ -6,32 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-<pre><code>
-import csv
-with open('test_cases.csv') as f:
-    for i, row in enumerate(csv.DictReader(f), 1):
-        if row["email"] and row["status"] in ["active", "inactive"]:
-            print(f"Test {i} Passed: {row['name']}")
-        else:
-            print(f"Test {i} Failed: {row['name']}")
-</code></pre>
-<pre>
-    <code>
-from pywinauto import Application
-from time import sleep
-app = Application(backend="uia").start("calc.exe")
-sleep(2)
-c = app.connect(title_re="Calculator").top_window()
-c.set_focus()
-c.type_keys("7{+}3{ENTER}")
-sleep(1)
-r = c.child_window(auto_id="CalculatorResults", control_type="Text").window_text()
-print("Test Passed" if "10" in r else "Test Failed")
-c.close()
-    </code>
-</pre>
-
-    <a href="STM_1.pdf" download>Module 1</a><br>
-    <a href="STM_2.pdf" download>Module 2</a>
+    <h1>WEBSITE DOWN UNTIL NEXT LAB!!!</h1>
 </body>
 </html>
